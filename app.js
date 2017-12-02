@@ -30,6 +30,12 @@ app.all('*', function (req, res, next) {
 /* Definição das rotas e dos metodos que tratam elas */
 app.post('/cadastro', routes.cadastroUsuario);
 app.get('/teste', routes.valida, routes.teste);
+app.get('/', function(req, res){
+    res.sendFile(__dirname+'/public/views/index.html');
+});
+app.get('/cadastro', function(req, res){
+    res.sendFile(__dirname+'/public/views/cadastroUsuario.html');
+});
 /* relações entre entidades */
 
 
