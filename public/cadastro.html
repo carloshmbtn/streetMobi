@@ -6,7 +6,7 @@
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <title>Form Examples | Bootstrap Based Admin Template - Material Design</title>
     <!-- Favicon-->
-    
+
 
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css?family=Roboto:400,700&subset=latin,cyrillic-ext" rel="stylesheet" type="text/css">
@@ -836,27 +836,6 @@
                                         <input type="password" id="senha" class="form-control" placeholder="Digite sua senha">
                                     </div>
                                 </div>
-                                <label for="tipo_mobilidade">Tipo de mobilidade</label>
-                                <div class="form-group">
-                                    <div class="form-line">
-                                        <input type="checkbox" id="cadeirante" class="filled-in">
-                                        <label for="cadeirante">Cadeirante</label> <br>
-                                        <input type="checkbox" id="idoso" class="filled-in">
-                                        <label for="idoso">Idoso</label> <br>
-                                        <input type="checkbox" id="deficiente_visual" class="filled-in">
-                                        <label for="deficiente_visual">Deficiência Visual</label> <br>
-                                        <input type="checkbox" id="gravidas" class="filled-in">
-                                        <label for="gravidas">Grávidas</label> <br>
-                                        <input type="checkbox" id="carrinho_bebe" class="filled-in">
-                                        <label for="carrinho_bebe">Carrinho Bebê</label> <br>
-                                        <input type="checkbox" id="muletas" class="filled-in">
-                                        <label for="muletas">Muletas</label> <br>
-                                        <input type="checkbox" id="obesidade_morbita" class="filled-in">
-                                        <label for="obesidade_morbita">Obesidade Mórbita</label> <br>
-
-
-                                    </div>
-                                </div>
 
                                 <br>
                                 <button type="button" class="btn btn-primary m-t-15 waves-effect">Salvar</button>
@@ -890,6 +869,7 @@
 
     <!-- Custom Js -->
     <script src="../../js/admin.js"></script>
+    <script src="../../js/pages/forms/advanced-form-elements.js"></script>
 
     <!-- Demo Js -->
     <script src="../../js/demo.js"></script>
@@ -897,6 +877,13 @@
     <script>
         $('input[type="checkbox"]').on('change', function() {
             $(this).siblings('input[type="checkbox"]').prop('checked', false);
+        });
+    </script>
+
+    <script>
+        $('.selectpicker').selectpicker({
+            style: 'btn-info',
+            size: 4
         });
     </script>
 
