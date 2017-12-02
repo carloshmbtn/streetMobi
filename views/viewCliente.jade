@@ -1,0 +1,45 @@
+extends layout
+
+block vars
+    - var atual= 'cliente';
+block content
+    .page-header
+        h1=title
+    #main.container-fluid
+        if cs
+            .row
+                .col-md-6
+                    p
+                        strong Nome
+                    p= cs.nome
+                .col-md-6
+                    p
+                        strong RG
+                    p= cs.RG
+                .col-md-6
+                    p
+                        strong CPF
+                    p= cs.CPF
+                .col-md-6
+                    p
+                        strong Email
+                    p= cs.email
+                .col-md-6
+                    p
+                        strong Rua
+                    p= cs.rua
+                .col-md-6
+                    p
+                        strong Número
+                    p= cs.numero
+                .col-md-6
+                    p
+                        strong Bairro
+                    p= cs.bairro
+                .col-md-6
+                    p
+                        strong Telefone
+                    p= cs.telefone
+        else
+            p Não econtrado
+            

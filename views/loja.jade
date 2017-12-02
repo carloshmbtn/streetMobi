@@ -1,0 +1,27 @@
+extends layout
+
+block vars
+    - var atual= 'loja';
+block content
+    .page-header
+        h1=title
+    div
+        div(style='width:100%; height:200px; overflow: auto;')
+            table.table.table-striped
+                tr 
+                    th Nome
+                for l in lojas
+                    tr
+                        td= l.nome
+        form(action="/usuarios/loja", method="post")
+            .form-group
+                label(for="nome") Nome
+                input(type="text", name="nome", value= messages.nome, id="nome", class="form-control")
+            // -
+                .form-group
+                    label(for="token") Token
+                    input(type="text", name="token", value= messages.token, id="token", class="form-control")
+                .form-group
+                    label(for="user") UserID
+                    input(type="text", name="user", value= messages.user, id="user", class="form-control")
+            input(type="submit", value="Cadastrar", class="btn btn-default")

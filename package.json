@@ -1,22 +1,25 @@
 {
-  "name": "Pic",
-  "version": "1.0.0",
-  "description": "",
-  "main": "app.js",
+  "name": "sms-express",
+  "version": "0.0.0",
+  "private": true,
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node ./bin/www"
   },
-  "author": "Pic Group",
-  "license": "ISC",
   "dependencies": {
-    "body-parser": "^1.15.2",
-    "express": "^4.14.0",
-    "hash.js": "^1.0.3",
-    "jsonwebtoken": "^7.2.1",
-    "multer": "^1.2.1",
-    "pg": "^6.1.2",
+    "body-parser": "~1.17.1",
+    "cookie-parser": "~1.4.3",
+    "debug": "~2.6.3",
+    "express": "~4.15.2",
+    "express-flash": "git://github.com/RGBboy/express-flash.git",
+    "express-session": "^1.15.5",
+    "jade": "~1.11.0",
+    "morgan": "~1.8.1",
+    "node-gyp": "^3.6.2",
+    "pg": "^7.2.0",
     "pg-hstore": "^2.3.2",
-    "sequelize": "^3.28.0",
-    "sqlite": "^2.3.0"
+    "request": "^2.81.0",
+    "sequelize": "^4.7.5",
+    "serve-favicon": "~2.4.2",
+    "sqlite3": "^3.1.12"
   }
 }

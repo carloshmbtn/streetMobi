@@ -1,0 +1,44 @@
+extends layout
+
+block vars
+    - var atual= 'usuario';
+block content
+    .page-header
+        h1=title
+    div
+        div(style='width:100%; height:200px; overflow: auto;')
+            table.table.table-striped
+                tr 
+                    th Nome
+                    th Usuário
+                for u in usuarios
+                    tr 
+                        td= u.nome
+                        td= u.username
+        .row
+            form(action="/usuarios/novo1", method="post")
+                if p == 'admin'
+                    .col-sm-12
+                        .form-group
+                            label Loja
+                            select.form-control(name="loja")
+                                for l in lojas 
+                                    option(value= l.id)= l.nome
+                .col-sm-12
+                    .form-group
+                        label(for="nome") Nome
+                        input(type="text", name="nome", value= messages.nome id="nome", class="form-control")
+                .col-sm-4
+                    .form-group
+                        label(for="user") Usuário
+                        input(type="text", name="usuario", value= messages.username, id="user", class="form-control")
+                .col-sm-4
+                    .form-group
+                        label(for="sen") Senha
+                        input(type="password", name="senha", value= messages.numero, id="senha", class="form-control")
+                .col-sm-4
+                    .form-group
+                        label(for="sen2") Repetir Senha
+                        input(type="password", name="senha2", value= messages.numero, id="senha2", class="form-control")
+                .col-sm-12
+                    input(type="submit", value="Enviar", class="btn btn-default")

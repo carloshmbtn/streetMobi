@@ -1,0 +1,47 @@
+doctype html
+html(lang='')
+    head
+        block vars
+        meta(charset='utf-8')
+        meta(http-equiv='X-UA-Compatible', content='IE=edge')
+        meta(name='viewport', content='width=device-width, initial-scale=1')
+        link(rel='stylesheet', href='/stylesheets/style.css')
+        link(rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css', integrity='sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u', crossorigin='anonymous')
+        link(rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.css")
+        script(src='http://code.jquery.com/jquery-latest.min.js', type='text/javascript')
+        script(src='https://code.jquery.com/ui/1.12.1/jquery-ui.js')
+        <link rel="shortcut icon" type="image/png" href="/images/favi.ico"/>
+        title=title
+    body
+        #myTopnav.topnav
+            if menus
+                for m in menus
+                    if m.a == atual
+                        a(href=m.h style='background-color: #ddd;color: black;')= m.t
+                    else
+                        a(href=m.h)= m.t
+            else
+                a(href='') Login
+            a(href='/usuarios/login/sair' style=sair) Sair
+            a.icon(href='javascript:void(0);', style='font-size:15px;', onclick='myFunction()') ☰
+        script.
+            function myFunction() {
+                var x = document.getElementById("myTopnav");
+                if (x.className === "topnav") {
+                    x.className += " responsive";
+                } else {
+                    x.className = "topnav";
+                }
+            }
+        .container
+            .col-md-7.col-md-offset-2
+
+                if messages && messages.sucesso
+                    .alert.alert-success(style='margin-top:18px;', onClick="document.getElementById('s').style.display = 'none'", id='s')
+                        a.close(href='#', title='close') &times;
+                        p= messages.sucesso
+                if messages && messages.erro
+                    .alert.alert-danger(style='margin-top:18px;', onClick="document.getElementById('e').style.display = 'none'", id='e')
+                        a.close(href='#', title='close') &times;
+                        p= messages.erro
+                block content

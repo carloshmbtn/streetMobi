@@ -1,0 +1,115 @@
+extends layout
+
+block vars
+    - var atual= 'credito';
+block content
+    .page-header
+        h1=title
+    div
+        table#tabela.table.table-striped
+        #legenda(style="display: none; width: 200px;")
+            p Legenda (passe o mouse)
+        #leg(style="display: none;")
+            table.table.table-striped
+                tr
+                    th Código
+                    th Descrição
+                tr 
+                    td 3
+                    td Aguarde
+                tr 
+                    td 2
+                    td Confirmação de Leitura
+                tr 
+                    td 1
+                    td Confirmação de Entrega
+                tr
+                    td 0
+                    td Mensagem Enviada com Sucesso.
+                tr 
+                    td -1
+                    td Mensagem na Fila para Envio.
+                tr 
+                    td -2
+                    td Erro - Possível Erro na Entrega.
+                tr 
+                    td -3
+                    td Erro - Número Inválido.
+                tr 
+                    td -4
+                    td Erro - Número de Telefone Fixo.
+                tr
+                    td -5
+                    td Erro – Bloqueio por Opt-out.
+        form(action="JavaScript:enviar();")
+            .form-group
+                label Data inicial:
+                input(type="text", id="inicio", name="inicio", class="form-control", data-date-format='yy-mm-dd', onkeydown="return false;")
+            .form-group
+                label Data final:
+                input(type="text", id="fim", name="fim", class="form-control", data-date-format='yy-mm-dd', onkeydown="return false;")
+            button(class="btn btn-default") Enviar
+    script.
+        /*$.ajax({
+            url : "/creditos/requisicao",
+            type : 'get'
+        })
+        .done(function(msg){
+            $("#cont").html(msg);
+        })*/
+        var enviar = function(){
+            var inicio = document.getElementById('inicio').value;
+            var final = document.getElementById('fim').value;
+            
+            $.ajax({
+                url : "/creditos/requisicao?inicio="+inicio+'&final='+final,
+                type : 'get',
+                beforeSend: function(){
+                    $("#tabela").html('Aguarde...');
+                }
+            })
+            .done(function(registros){
+                $("#tabela").html('');
+                for(var i = 0; i < registros.length; i++){
+                    getNome(registros[i]);
+                }
+                //$("#cont").html(msg);
+                //$("#legenda").show();
+            })
+        }
+        
+        var getNome = function(contato){
+            $.ajax({
+                url : "/creditos/nome/?num="+contato.numero,
+                type : 'get'
+            })
+            .done(function(cliente){
+                var t = document.getElementById('tabela');
+                var linha =  t.insertRow(t.rows.length);
+                var nome = linha.insertCell(0);
+                var codigo = linha.insertCell(1);
+                var data = linha.insertCell(2);
+                
+                var a = document.createElement('a');
+                a.appendChild(document.createTextNode(cliente.nome));
+                a.title = cliente.nome;
+                a.href = '/clientes/'+cliente.id;
+                a.target= '_blank';
+                
+                nome.appendChild(a);
+                codigo.appendChild(document.createTextNode(contato.codigo));
+                data.appendChild(document.createTextNode(contato.data));
+                //$("#cont").append("<p>"+cliente.nome+" "+cliente.id+" "+contato.codigo+" "+contato.data+"</p>");
+            })
+        }
+        
+        $( function() {
+            $( "#inicio").datepicker({dateFormat: 'yy-mm-dd'});
+            $( "#fim").datepicker({dateFormat: 'yy-mm-dd'});
+        });
+        
+        $("#legenda").mouseover(function() {
+            $("#leg").show();
+        }).mouseout(function() {
+            $("#leg").hide();
+        });

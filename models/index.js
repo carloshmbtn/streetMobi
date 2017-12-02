@@ -1,42 +1,19 @@
-/*global require, module, __dirname*/
-
-
-
-/*inclusoes necessarias para o projeto*/
-
-
+'use strict';
 
 var fs        = require('fs');
 var path      = require('path');
 var Sequelize = require('sequelize');
-var config    = require('../config');
-
-
-/* fs é usado para acesasar os arquivos do disco
-* path é usado para pegar os diretorios
-* Sequelize é um framework ORM
-* config utiliza o config.js
-*/
-
 var basename  = path.basename(module.filename);
+var env       = process.env.NODE_ENV || 'development';
+var config    = require(__dirname + '/../config/config.json')[env];
 var db        = {};
 
-/* inicializando o sequelize (ORM) */
-var sequelize = new Sequelize(config.nomeBanco, config.usuarioBanco, config.senhaBanco, {
-    host: config.urlBanco,
-    dialect: config.dialeto,
-    logging: false,
-    storage: config.storage,
+if (config.use_env_variable) {
+  var sequelize = new Sequelize(process.env[config.use_env_variable]);
+} else {
+  var sequelize = new Sequelize(config.database, config.username, config.password, config);
+}
 
-    pool: {
-        max: 5,
-        min: 0,
-        idle: 10000
-    }
-});
-
-
-/* fs faz um FOR na pasta dos modelos lendo cada um e associando ao Sequelize*/
 fs
   .readdirSync(__dirname)
   .filter(function(file) {
@@ -53,7 +30,7 @@ Object.keys(db).forEach(function(modelName) {
   }
 });
 
-db.sequelize = sequelize; /* guarda uma referencia da instância do Sequelize em db */
-db.Sequelize = Sequelize; /* guarda uma referencia para a biblioteca Sequelize */
+db.sequelize = sequelize;
+db.Sequelize = Sequelize;
 
 module.exports = db;

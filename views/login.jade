@@ -1,0 +1,17 @@
+extends layout
+
+block vars
+    - var atual= '';
+block content
+    .page-header
+        h1=title
+    div
+        <h1>teste</h1>
+        form(action="/usuarios/login", method="post")
+            .form-group
+                label(for="user") Usuário
+                input(type="text", name="username", value= messages.numero, id="user", class="form-control")
+            .form-group
+                label(for="sen") Senha
+                input(type="password", name="senha", value= messages.mensagem, id="sen", class="form-control")
+            input(type="submit", value="Enviar", class="btn btn-default")

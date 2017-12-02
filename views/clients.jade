@@ -1,0 +1,116 @@
+extends layout
+
+block vars
+    - var atual= 'cliente';
+block content
+    .page-header
+        h1=title
+    div
+        form(action="JavaScript:pesquisar();")
+            input(type="text", id='pesquisa', class="form-control")
+            button(class="btn btn-default") Pesquisar
+        if termos
+            p Pesquisado: #{termos}
+        div(style='width:100%; height:200px; overflow: auto;')
+            table.table.table-striped
+                tr 
+                    th Nome
+                    th X
+                for c in clientes
+                    tr 
+                        td= c.nome
+                        td
+                            a(href='/clientes/'+c.id) Visualizar   
+                            a(href='/clientes/edit/'+c.id) Editar
+        .row
+            form(action="/clientes/novo", method="post", onsubmit="return adquiridos();")
+                .col-sm-12
+                    .form-group
+                        label(for="nome") Nome
+                        input(type="text", name="nome", value= messages.nome id="nome", class="form-control")
+                .col-sm-6
+                    .form-group
+                        label(for="rg") RG
+                        input(type="text", name="rg", value= messages.RG, id="rg", class="form-control")
+                .col-sm-6
+                    .form-group
+                        label(for="cpf") CPF
+                        input(type="text", name="cpf", value= messages.CPF, id="cpf", class="form-control")
+                .col-sm-8
+                    .form-group
+                        label(for="rua") Rua
+                        input(type="text", name="rua", value= messages.rua, id="rua", class="form-control")
+                .col-sm-4
+                    .form-group
+                        label(for="numero") Número
+                        input(type="text", name="numero", value= messages.numero, id="numero", class="form-control")
+                .col-sm-6
+                    .form-group
+                        label(for="bairro") Bairro
+                        input(type="text", name="bairro", value= messages.bairro, id="bairro", class="form-control")
+                .col-sm-6
+                    .form-group
+                        label(for="email") Email
+                        input(type="text", name="email", value= messages.email, id="email", class="form-control")
+                .col-sm-6
+                    .form-group
+                        label(for="telefone") Telefone
+                        input(type="text", name="telefone", value= messages.telefone, id="telefone", class="form-control")
+                .col-sm-12
+                    table.table.table-striped
+                        tr 
+                            td 
+                                p Rodoviário
+                            td
+                                input(type="checkbox", value="rodoviario", name="adq", id="rodoviario")
+                        tr
+                            td 
+                                p Aéreo
+                            td
+                                input(type="checkbox", value="aereo", name="adq", id="aereo")
+                        tr
+                            td 
+                                p Pacote
+                            td
+                                input(type="checkbox", value="pacote", name="adq", id="pacote")
+                        tr
+                            td 
+                                p Locação
+                            td
+                                input(type="checkbox", value="locacao", name="adq", id="locacao")
+                        tr
+                            td 
+                                p Encomendas
+                            td
+                                input(type="checkbox", value="encomendas", name="adq", id="encomendas")
+                .col-sm-12
+                    input(type="text", id="adqunico", style="display: none", name="adquirido")
+                .col-sm-12
+                    input(type="submit", value="Enviar", class="btn btn-default")
+        script.
+            var adquiridos = function(){
+                var elementos = document.getElementsByName('adq');
+                var a = '';
+                for(var i = 0; i < elementos.length; i++){
+                    if(elementos[i].checked){
+                        a = a+elementos[i].value+';';
+                    }
+                }
+                document.getElementById('adqunico').value= a;
+            }
+            
+            var init = function(){
+                var adq = "#{messages.adq}";
+                var a = adq.split(';');
+                for(var i in a){
+                    var e = document.getElementById(a[i]);
+                    if(e) e.checked = true;
+                }
+            }
+            init();
+            
+            var pesquisar = function(){
+                var termos = encodeURI(document.getElementById('pesquisa').value);
+                console.log(termos);
+                window.location.href = "/clientes/?nome="+termos;
+            }

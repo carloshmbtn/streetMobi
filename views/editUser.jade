@@ -1,0 +1,34 @@
+extends layout
+
+block vars
+    - var atual= 'perfil';
+block content
+    .page-header
+        h1=title
+    div
+        
+        .row
+            form(action="/usuarios/perfil", method="post")
+                
+                .col-sm-12
+                    .form-group
+                        label(for="nome") Nome
+                        input(type="text", name="nome", value= usuario.nome id="nome", class="form-control")
+                .col-sm-12
+                    .form-group
+                        label(for="user") Usuário
+                        input(type="text", name="usuario", value= usuario.username, id="user", class="form-control")
+                .col-sm-12
+                    .form-group
+                        label(for="sen3") Senha Atual (obrigatório)
+                        input(type="password", name="senhaA", value= messages.numero, id="senhaA", class="form-control")
+                .col-sm-12
+                    .form-group
+                        label(for="sen") Senha
+                        input(type="password", name="senha", value= messages.numero, id="senha", class="form-control")
+                .col-sm-12
+                    .form-group
+                        label(for="sen2") Repetir Senha
+                        input(type="password", name="senha2", value= messages.numero, id="senha2", class="form-control")
+                .col-sm-12
+                    input(type="submit", value="Enviar", class="btn btn-default")
